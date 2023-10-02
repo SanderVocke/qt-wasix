@@ -58,7 +58,7 @@ jobs:
         if: ${{ !env.ACT }}
         with:
           path: /opt/qt6
-          key: qt6-build-host-${{ env.QT_REV }}-2
+          key: qt6-build-host-${{ github.sha }}-2
 
       - name: Configure Qt6 (host)
         if: steps.cache-qt-build-host.outputs.cache-hit != 'true'
@@ -87,7 +87,7 @@ jobs:
         if: ${{ !env.ACT }}
         with:
           path: /opt/qt6
-          key: qt6-build-host-${{ env.QT_REV }}-2
+          key: qt6-build-host-${{ github.sha }}-2
 
       - name: Configure Qt6 (WASI)
         run: >
