@@ -43,7 +43,6 @@ jobs:
       - name: Install WASI SDK
         run: |
           wget https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-20/wasi-sdk-20.0-linux.tar.gz -O wasi-sdk.tar.gz
-          rm -rf /opt/wasi-sdk
           tar -xvf wasi-sdk.tar.gz -C /opt
 
       # - name: Install builtins
@@ -93,8 +92,8 @@ jobs:
         run: >
           mkdir -p qt6-build &&
           cd qt6-build &&
-          export COMPILEFLAGS="-D__linux__ -DQT_NO_VERSION_TAGGING -DQT_NO_EXCEPTIONS -I$(pwd)/../qtbase/mkspecs/common/posix -D_WASI_EMULATED_PROCESS_CLOCKS -DQT_LINUXBASE -DWASIX --sysroot=/opt/wasi-sdk-20/share-wasi-sysroot" &&
-          ../configure -prefix /opt/qt6-wasm -static -no-opengl -platform unsupported -qt-host-path /opt/qt6 -no-feature-brotli -no-feature-qml-network -no-feature-networkproxy -no-feature-networkinterface -no-feature-networklistmanager -no-feature-evdev -no-feature-topleveldomain -no-feature-linux-netlink -no-feature-dnslookup -no-feature-networkdiskcache -no-feature-library -no-feature-localserver -no-feature-libudev -- --fresh -DCMAKE_TOOLCHAIN_FILE=/opt/wasi-sdk-20/share/cmake/wasi-sdk-pthread.cmake -DCMAKE_SYSROOT=/opt/wasi-sdk-20/share-wasi-sysroot -DCMAKE_CXX_FLAGS="$COMPILEFLAGS" -DCMAKE_C_FLAGS="$COMPILEFLAGS" -DUNIX=1 -DQT_FORCE_BUILD_TOOLS=OFF
+          export COMPILEFLAGS="-D__linux__ -DQT_NO_VERSION_TAGGING -DQT_NO_EXCEPTIONS -I$(pwd)/../qtbase/mkspecs/common/posix -D_WASI_EMULATED_PROCESS_CLOCKS -DQT_LINUXBASE -DWASIX --sysroot=/opt/wasi-sdk-20.0/share-wasi-sysroot" &&
+          ../configure -prefix /opt/qt6-wasm -static -no-opengl -platform unsupported -qt-host-path /opt/qt6 -no-feature-brotli -no-feature-qml-network -no-feature-networkproxy -no-feature-networkinterface -no-feature-networklistmanager -no-feature-evdev -no-feature-topleveldomain -no-feature-linux-netlink -no-feature-dnslookup -no-feature-networkdiskcache -no-feature-library -no-feature-localserver -no-feature-libudev -- --fresh -DCMAKE_TOOLCHAIN_FILE=/opt/wasi-sdk-20.0/share/cmake/wasi-sdk-pthread.cmake -DCMAKE_SYSROOT=/opt/wasi-sdk-20.0/share-wasi-sysroot -DCMAKE_CXX_FLAGS="$COMPILEFLAGS" -DCMAKE_C_FLAGS="$COMPILEFLAGS" -DUNIX=1 -DQT_FORCE_BUILD_TOOLS=OFF
       
       - name: Build Qt6 (WASI)
         run: |
